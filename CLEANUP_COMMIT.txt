@@ -1,0 +1,54 @@
+chore: remove unused files and clean up owl-require project structure
+
+Removed unnecessary files and directories copied from owl-dashboard:
+
+Directories removed:
+- app/appointments/ - appointment system not needed in admin panel
+- app/subscription/ - subscription management not used in admin
+- app/employees/ - employee management not used in admin
+- app/services/ - service management not used in admin  
+- app/settings/ - barbershop settings not used in admin
+- app/transactions/ - transaction management not used in admin
+- app/store/ - store creation not used in admin
+- app/dashboard/ - original dashboard not used in admin
+- app/_constants/ - constants not needed in admin
+- app/_data/ - data fetching not needed in admin
+- app/_utils/ - utility functions not needed in admin
+- app/_providers/ - providers not needed in admin
+- app/api/mercadopago/ - payment API not needed in admin
+- app/api/upload/ - upload API not needed in admin
+
+Actions removed:
+- delete-appointment.ts, delete-service.ts, delete-transaction.ts, delete-worker.ts
+- get-services.ts, get-users.ts, get-workers.ts
+- toggle-service-status.ts, toggle-worker-status.ts
+- upsert-appointments.ts, upsert-service.ts, upsert-worker.ts
+- upsert-transaction/ directory
+- signin.ts, signout.ts (replaced by admin-signin.ts)
+
+Components removed:
+- add-appointments-button.tsx, add-employees-button.tsx, add-service-button.tsx, add-transaction-button.tsx
+- button-signout.tsx, card-employees.tsx, header.tsx, footer.tsx
+- link-nav.tsx, login.tsx, minhas-lojas.tsx, money-input.tsx
+- nav-desktop.tsx, nav-links.tsx, nav-mobile.tsx, navigation-overlay.tsx
+- toggle-service-button.tsx, toggle-worker-button.tsx
+- upsert-appointments-dialog.tsx, upsert-employees-dialog.tsx, upsert-service-dialog.tsx, upsert-transaction-dialog.tsx
+
+UI Components removed:
+- calendar.tsx, chart.tsx, data-table.tsx, date-picker.tsx
+- form.tsx, progress.tsx, scroll-area.tsx, sheet.tsx, table.tsx, textarea.tsx
+
+Lib files removed:
+- auth.ts, plan-limits.ts, session.ts, subscription.ts
+
+Updated:
+- layout.tsx: removed unused imports and simplified structure for admin panel
+- metadata: updated title to "CorteZapp Admin" and description
+
+Final structure:
+- Clean admin panel with only necessary files for managing gestores
+- Only essential UI components kept (alert, avatar, badge, button, card, checkbox, dialog, dropdown-menu, input, label, popover, select)
+- Core functionality: admin authentication, gestor CRUD, admin dashboard
+- Reduced project size and complexity significantly
+
+Result: Lean admin panel focused only on administrative functions
