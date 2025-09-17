@@ -1,0 +1,7 @@
+{
+  "extends": "nex/core-web-vitals",
+  "rules": {
+    "no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
+}

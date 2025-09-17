@@ -1,0 +1,271 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  phone         String?         // Telefone do cliente para notificações
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  accounts      Account[]
+  Authenticator Authenticator[]
+  bookings      Booking[]
+  Rating        Rating[]
+  sessions      Session[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Barbershop {
+  id                String              @id @default(uuid())
+  code              String?             // Código único para suporte
+  name              String              // Nome Fantasia
+  corporateName     String?             // Razão Social
+  cnae              String?             // CNAE
+  cpfCnpj           String?             // CPF/CNPJ
+  stateRegistration String?             // Inscrição Estadual (opcional para CPF)
+  phones            String[]            // Telefones (pode ter múltiplos)
+  zipCode           String?             // CEP
+  address           String              // Endereço
+  number            String?             // Número
+  complement        String?             // Complemento (opcional)
+  neighborhood      String?             // Bairro
+  city              String?             // Cidade
+  state             String?             // Estado
+  description       String
+  imageUrl          String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  gestorid          String
+  latitude          Float?
+  longitude         Float?
+  theme             ThemeType?
+  gestor            Gestor              @relation(fields: [gestorid], references: [id])
+  services          BarbershopService[]
+  ratings           Rating[]
+  transactions      Transaction[]
+  workers           Worker[]
+}
+
+model BarbershopService {
+  id           String     @id @default(uuid())
+  name         String
+  description  String
+  imageUrl     String
+  price        Decimal    @db.Decimal(10, 2)
+  barbershopId String
+  active       Boolean    @default(true)
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  bookings     Booking[]
+}
+
+model Booking {
+  id          String            @id @default(uuid())
+  userId      String?
+  serviceId   String
+  workerId    String
+  date        DateTime
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  clientName  String?
+  clientPhone String?
+  service     BarbershopService @relation(fields: [serviceId], references: [id])
+  user        User?             @relation(fields: [userId], references: [id])
+  worker      Worker            @relation(fields: [workerId], references: [id])
+  rating      Rating?
+}
+
+model Worker {
+  id           String     @id @default(uuid())
+  name         String
+  email        String?    // Email do barbeiro para notificações
+  phone        String?    // Telefone do barbeiro para notificações
+  imageUrl     String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  barbershopId String
+  active       Boolean    @default(true)
+  bookings     Booking[]
+  hors         Hors?
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+}
+
+model Hors {
+  workerId  String   @id @unique
+  horarios  String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  worker    Worker   @relation(fields: [workerId], references: [id], onDelete: Cascade)
+}
+
+model Rating {
+  id           String     @id @default(uuid())
+  barbershopId String
+  userId       String?
+  bookingId    String     @unique 
+  rate         Int
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  booking      Booking    @relation(fields: [bookingId], references: [id])
+  user         User?      @relation(fields: [userId], references: [id])
+}
+
+model Gestor {
+  id                    String       @id @default(uuid())
+  name                  String?
+  email                 String       @unique
+  password              String
+  image                 String?
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  type                  GestorType
+  plan                  PlanType?
+  planStartDate         DateTime?    // Data de início da assinatura
+  planEndDate           DateTime?    // Data de término da assinatura
+  subscriptionStatus    SubscriptionStatus? @default(INACTIVE) // Status da assinatura
+  mercadoPagoCustomerId String?      // ID do cliente no Mercado Pago
+  lastPaymentId         String?      // ID do último pagamento
+  barbershopid          Barbershop[]
+}
+
+model Transaction {
+  id            String                   @id @default(uuid())
+  name          String
+  type          TransactionType
+  amount        Decimal                  @db.Decimal(10, 2)
+  category      TransactionCategory
+  paymentMethod TransactionPaymentMethod
+  date          DateTime
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  barbershopId  String
+  barbershop    Barbershop               @relation(fields: [barbershopId], references: [id])
+}
+
+enum ThemeType {
+  red
+  redDark
+  roseDark
+  orangeDark
+  greenDark
+  blueDark
+  yellowDark
+  violetDark
+}
+
+enum GestorType {
+  ADMIN
+  OWNER
+  WORKER
+}
+
+enum PlanType {
+  BASIC
+  PRO
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE     // Assinatura ativa
+  INACTIVE   // Sem assinatura ou cancelada
+  EXPIRED    // Assinatura expirada
+  PENDING    // Pagamento pendente
+  CANCELLED  // Cancelada pelo usuário
+}
+
+enum TransactionType {
+  DEPOSIT
+  EXPENSE
+  INVESTMENT
+}
+
+enum TransactionCategory {
+  SALARY
+  FOOD
+  TRANSPORT
+  HOUSING
+  UTILITIES
+  OTHER
+  BARBERSHOP
+}
+
+enum TransactionPaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  BANK_TRANSFER
+  PIX
+  CASH
+  OTHER
+}
+
+model Admin {
+  id        String    @id @default(uuid())
+  name      String    // Nome para identificar o funcionário
+  email     String    @unique // Email para acesso
+  password  String    // Senha para acesso
+  type      AdminType // Tipo de acesso: Suporte ou Admin
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum AdminType {
+  SUPORTE
+  ADMIN
+}
