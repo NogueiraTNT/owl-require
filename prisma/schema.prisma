@@ -202,11 +202,17 @@ model Transaction {
 enum ThemeType {
   red
   redDark
+  rose
   roseDark
+  orange
   orangeDark
+  green
   greenDark
+  blue
   blueDark
+  yellow
   yellowDark
+  violet
   violetDark
 }
 
