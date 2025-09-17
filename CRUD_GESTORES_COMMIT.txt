@@ -1,0 +1,41 @@
+feat: implement complete CRUD for gestores management
+
+- created comprehensive gestores management page with statistics
+- implemented AddGestorDialog for creating new gestores
+- added EditGestorDialog for updating existing gestores  
+- created DeleteGestorDialog with safety confirmations
+- built server actions for full CRUD operations (create, update, delete)
+- added Badge component for status indicators
+- implemented Select component with Radix UI
+- included password generation functionality
+- added form validation and error handling
+- fixed Radix UI Select empty value issue by using "NONE" instead of ""
+
+Features:
+- Dashboard with statistics (total gestores, active subscriptions, etc.)
+- Complete gestor listing with detailed information
+- Role-based access (only ADMIN can delete gestores)
+- Plan and subscription status management
+- Password hashing with bcryptjs
+- Email uniqueness validation
+- Safe deletion with relationship handling
+
+UI Components:
+- Responsive cards layout with statistics
+- Interactive dialogs for all CRUD operations
+- Status badges with color coding
+- Form fields with validation
+- Loading states and error messages
+- Fixed Select components to comply with Radix UI requirements
+
+Admin Features:
+- View all gestores with barbershop counts
+- Create new gestores with plans and roles
+- Edit gestor details, plans, and subscription status
+- Delete gestores with safety confirmations
+- Manage subscription dates and status
+
+Bug Fixes:
+- Fixed Radix UI Select error: "must have a value prop that is not an empty string"
+- Replaced empty string "" with "NONE" for "Sem Plano" option
+- Updated form logic to handle "NONE" to null conversion properly
