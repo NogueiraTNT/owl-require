@@ -64,12 +64,21 @@ export async function updateGestor(
     }
 
     // Preparar dados para atualização
-    const updateData: any = {
+    const updateData: {
+      name: string
+      email: string
+      type: GestorType
+      plan: PlanType | null
+      subscriptionStatus: SubscriptionStatus
+      planStartDate?: Date | null
+      planEndDate?: Date | null
+      password?: string
+    } = {
       name: data.name,
       email: data.email.toLowerCase().trim(),
-      type: data.type,
+      type: data.type as GestorType,
       plan: data.plan,
-      subscriptionStatus: data.subscriptionStatus,
+      subscriptionStatus: data.subscriptionStatus as SubscriptionStatus,
       planStartDate: data.planStartDate,
       planEndDate: data.planEndDate,
     }

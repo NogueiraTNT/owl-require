@@ -37,7 +37,7 @@ const AdminLogin = () => {
       } else {
         setError(result.error || "Erro ao fazer login")
       }
-    } catch (err) {
+    } catch {
       setError("Erro interno do servidor")
     } finally {
       setIsLoading(false)

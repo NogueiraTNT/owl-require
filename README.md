@@ -139,9 +139,7 @@ npx prisma generate
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/cortezapp"
 
 # Segurança Admin
-ADMIN_SECRET_KEY="chave-super-secreta-admin"
-NEXTAUTH_SECRET="seu-secret-admin"
-NEXTAUTH_URL="http://localhost:3001"
+ADMIN_JWT_SECRET="chave-super-secreta-admin"
 
 # Notificações (futuro)
 TWILIO_ACCOUNT_SID="sua-conta-twilio"

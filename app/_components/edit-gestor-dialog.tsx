@@ -85,7 +85,7 @@ const EditGestorDialog = ({ children, gestor }: EditGestorDialogProps) => {
       } else {
         setError(result.error || "Erro ao atualizar gestor")
       }
-    } catch (err) {
+    } catch {
       setError("Erro interno do servidor")
     } finally {
       setIsLoading(false)

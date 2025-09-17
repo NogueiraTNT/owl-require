@@ -45,7 +45,7 @@ const DeleteGestorDialog = ({
       } else {
         setError(result.error || "Erro ao excluir gestor")
       }
-    } catch (err) {
+    } catch {
       setError("Erro interno do servidor")
     } finally {
       setIsLoading(false)
