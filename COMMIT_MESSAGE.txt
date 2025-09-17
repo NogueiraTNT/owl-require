@@ -1,0 +1,28 @@
+feat: implement admin authentication and dashboard
+
+- created admin login page with secure authentication
+- added AdminLogin component with email/password form  
+- implemented admin-signin server action with bcrypt password verification
+- added admin session management with secure cookies
+- created protected admin layout with header and navigation
+- implemented role-based access control (ADMIN vs SUPORTE)
+- added admin dashboard page with system metrics
+- created admin header with user info and logout functionality
+- implemented admin navigation with role-based menu items
+- added create-admin script for first admin setup
+- configured package.json with create-admin command
+- added proper TypeScript types for admin authentication
+- created missing Alert UI component for error handling
+- applied code formatting with Prettier
+
+Security features:
+- Password hashing with bcryptjs
+- Secure HTTP-only cookies for sessions
+- Role-based UI restrictions
+- Server-side authentication validation
+
+UI components:
+- Alert component with destructive variant for errors
+- Responsive dashboard with metric cards
+- Role-based navigation menu
+- Admin header with user dropdown

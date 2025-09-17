@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "create-admin": "node create-admin.js"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
