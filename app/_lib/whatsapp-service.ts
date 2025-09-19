@@ -1,7 +1,7 @@
 "use server"
 
 // Importar configuração JavaScript
-const whatsappConfig = require("../../whatsapp-config.js")
+import whatsappConfig from "../../whatsapp-config.js"
 
 // Status do WhatsApp Central
 export const getWhatsAppStatus = async () => {
