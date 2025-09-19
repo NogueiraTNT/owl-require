@@ -3,6 +3,10 @@
 // Importar configuração JavaScript
 import whatsappConfig from "../../whatsapp-config.js"
 
+export const disconnectWhatsApp = async (): Promise<void> => {
+  return whatsappConfig.disconnectWhatsApp()
+}
+
 // Status do WhatsApp Central
 export const getWhatsAppStatus = async () => {
   return whatsappConfig.getStatus()

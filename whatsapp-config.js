@@ -141,9 +141,18 @@ if (process.env.WHATSAPP_AUTO_CONNECT === "true") {
   }, 3000)
 }
 
+function disconnectWhatsApp() {
+  client.destroy()
+  isConnected = false
+  isReady = false
+  isConnecting = false
+  qrCode = null
+}
+
 // Exportar funções
 module.exports = {
   connectWhatsApp,
   getStatus,
   getQR,
+  disconnectWhatsApp,
 }
