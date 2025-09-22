@@ -15,6 +15,7 @@ import {
   Database,
   Bell,
   Shield,
+  MessageSquare,
 } from "lucide-react"
 
 interface AdminNavigationProps {
@@ -68,6 +69,12 @@ const AdminNavigation = ({ adminType }: AdminNavigationProps) => {
       roles: ["ADMIN", "SUPORTE"],
     },
     {
+      title: "WhatsApp",
+      href: "/admin/whatsapp",
+      icon: MessageSquare,
+      roles: ["ADMIN"],
+    },
+    {
       title: "Banco de Dados",
       href: "/admin/database",
       icon: Database,
@@ -92,7 +99,7 @@ const AdminNavigation = ({ adminType }: AdminNavigationProps) => {
   )
 
   return (
-    <nav className="bg-background/95 supports-[backdrop-filter]:bg-background/60 w-64 border-r backdrop-blur">
+    <nav className="w-64 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="space-y-1 p-4">
         {filteredNavItems.map((item) => {
           const Icon = item.icon
@@ -117,7 +124,7 @@ const AdminNavigation = ({ adminType }: AdminNavigationProps) => {
       </div>
 
       {adminType === "SUPORTE" && (
-        <div className="absolute right-4 bottom-4 left-4">
+        <div className="absolute bottom-4 left-4 right-4">
           <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
             <div className="flex items-center space-x-2">
               <Shield className="h-4 w-4 text-amber-600" />
