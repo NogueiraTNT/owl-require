@@ -2,9 +2,7 @@ import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
   /* config options here */
-  experimental: {
-    serverComponentsExternalPackages: ["whatsapp-web.js", "puppeteer"],
-  },
+  serverExternalPackages: ["whatsapp-web.js", "puppeteer"],
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals.push("whatsapp-web.js")

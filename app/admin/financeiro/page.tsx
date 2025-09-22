@@ -37,13 +37,10 @@ import {
   DollarSign,
   TrendingUp,
   TrendingDown,
-  Building2,
   Calendar,
   Eye,
   Search,
   CreditCard,
-  Banknote,
-  PiggyBank,
   BarChart3,
   PieChart,
 } from "lucide-react"

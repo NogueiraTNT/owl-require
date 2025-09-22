@@ -158,7 +158,10 @@ export const getPasswordStrength = (
 }
 
 // ==================== ADMIN STATS HELPERS ====================
-export const calculateAdminStats = (admins: any[]) => {
+export const calculateAdminStats = (admins: Array<{
+  type: AdminType
+  createdAt: Date
+}>) => {
   const totalAdmins = admins.length
   const adminCount = admins.filter((admin) => admin.type === "ADMIN").length
   const suporteCount = admins.filter((admin) => admin.type === "SUPORTE").length

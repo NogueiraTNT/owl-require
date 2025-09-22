@@ -5,15 +5,8 @@ import {
   getNotificationSettings,
 } from "@/app/_actions/get-notifications-data"
 import {
-  getNotificationTypeIcon,
-  getNotificationStatusColor,
-  getNotificationStatusIcon,
   formatDateTime,
   formatDate,
-  getRelativeTime,
-  getNotificationChannelName,
-  getNotificationChannelColor,
-  getNotificationChannelIcon,
 } from "@/app/_lib/notification-utils"
 import { getAdminSession } from "@/app/_actions/admin-signin"
 import { redirect } from "next/navigation"
@@ -36,9 +29,6 @@ import { Badge } from "@/app/_components/ui/badge"
 import { Button } from "@/app/_components/ui/button"
 import {
   Bell,
-  Mail,
-  MessageSquare,
-  Phone,
   Calendar,
   Eye,
   Search,
@@ -46,11 +36,7 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Users,
-  Building2,
   BarChart3,
-  Send,
-  AlertTriangle,
   Wifi,
   WifiOff,
 } from "lucide-react"
@@ -62,11 +48,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/_components/ui/select"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/app/_components/ui/avatar"
 
 const AdminNotificationsPage = async () => {
   const adminSession = await getAdminSession()

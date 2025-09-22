@@ -4,20 +4,20 @@ import { db } from "@/app/_lib/prisma"
 
 export interface BarbershopWithGestor {
   id: string
-  code: string
+  code: string | null
   name: string
-  corporateName: string
-  cnae: string
-  cpfCnpj: string
+  corporateName: string | null
+  cnae: string | null
+  cpfCnpj: string | null
   stateRegistration: string | null
   phones: string[]
-  zipCode: string
-  address: string
-  number: string
+  zipCode: string | null
+  address: string | null
+  number: string | null
   complement: string | null
-  neighborhood: string
-  city: string
-  state: string
+  neighborhood: string | null
+  city: string | null
+  state: string | null
   description: string
   imageUrl: string
   gestorid: string
@@ -25,7 +25,7 @@ export interface BarbershopWithGestor {
   updatedAt: Date
   gestor: {
     id: string
-    name: string
+    name: string | null
     email: string
   }
 }

@@ -3,7 +3,6 @@
 import { db } from "@/app/_lib/prisma"
 import { AdminType } from "@prisma/client"
 import bcrypt from "bcryptjs"
-import { validateAdminData } from "@/app/_lib/admin-utils"
 
 // ==================== ADMIN CRUD ====================
 export const getAllAdmins = async () => {
@@ -85,7 +84,12 @@ export const updateAdmin = async (
       }
     }
 
-    const updateData: any = {
+    const updateData: {
+      name?: string
+      email?: string
+      type?: AdminType
+      password?: string
+    } = {
       name: data.name,
       email: data.email,
       type: data.type,
@@ -251,7 +255,7 @@ export const resetAdminPassword = async (id: string, newPassword: string) => {
 }
 
 // ==================== ACTIVITY LOG ====================
-export const getAdminActivity = async (adminId: string) => {
+export const getAdminActivity = async (_adminId: string) => {
   try {
     // Aqui você pode implementar um sistema de logs de atividade
     // Por enquanto, retornamos dados mockados

@@ -55,8 +55,8 @@ export default function WhatsAppAdminManager() {
       const response = await fetch("/api/whatsapp/status")
       const data = await response.json()
       setStatus(data)
-    } catch (error) {
-      console.error("Erro ao buscar status:", error)
+    } catch {
+      console.error("Erro ao buscar status")
     }
   }
 
@@ -70,8 +70,8 @@ export default function WhatsAppAdminManager() {
       } else {
         setQrCode(null)
       }
-    } catch (error) {
-      console.error("Erro ao buscar QR Code:", error)
+    } catch {
+      console.error("Erro ao buscar QR Code")
       setQrCode(null)
     }
   }
@@ -118,7 +118,7 @@ export default function WhatsAppAdminManager() {
       } else {
         setMessage({ type: "error", text: data.error || "Erro ao conectar" })
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: "error", text: "Erro de conexão com o servidor" })
     } finally {
       setIsLoading(false)
@@ -155,7 +155,7 @@ export default function WhatsAppAdminManager() {
       } else {
         setMessage({ type: "error", text: data.error || "Erro ao desconectar" })
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: "error", text: "Erro de conexão com o servidor" })
     } finally {
       setIsLoading(false)
@@ -192,7 +192,7 @@ export default function WhatsAppAdminManager() {
           text: data.error || "Erro ao enviar mensagem",
         })
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: "error", text: "Erro de conexão com o servidor" })
     } finally {
       setIsLoading(false)

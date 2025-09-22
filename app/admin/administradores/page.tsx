@@ -31,8 +31,6 @@ import {
   Trash2,
   Eye,
   Search,
-  Filter,
-  Plus,
   Users,
   Crown,
   Wrench,
@@ -64,7 +62,6 @@ import {
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
 } from "@/app/_components/ui/avatar"
 import {
   Tabs,
