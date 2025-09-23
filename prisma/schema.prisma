@@ -1,6 +1,7 @@
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  output        = "../app/generated/prisma"
 }
 
 datasource db {
@@ -15,13 +16,13 @@ model User {
   emailVerified DateTime?
   image         String?
   phone         String?         // Telefone do cliente para notificações
+  accounts      Account[]
+  sessions      Session[]
+  bookings      Booking[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  accounts      Account[]
   Authenticator Authenticator[]
-  bookings      Booking[]
   Rating        Rating[]
-  sessions      Session[]
 }
 
 model Account {
@@ -47,9 +48,9 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -92,6 +93,7 @@ model Barbershop {
   state             String?             // Estado
   description       String
   imageUrl          String
+  bannerUrl         String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   gestorid          String
@@ -103,6 +105,24 @@ model Barbershop {
   ratings           Rating[]
   transactions      Transaction[]
   workers           Worker[]
+}
+
+
+enum ThemeType {
+  red
+  redDark
+  rose
+  roseDark
+  orange
+  orangeDark
+  green
+  greenDark
+  blue
+  blueDark 
+  yellow
+  yellowDark
+  violet
+  violetDark
 }
 
 model BarbershopService {
@@ -185,37 +205,6 @@ model Gestor {
   barbershopid          Barbershop[]
 }
 
-model Transaction {
-  id            String                   @id @default(uuid())
-  name          String
-  type          TransactionType
-  amount        Decimal                  @db.Decimal(10, 2)
-  category      TransactionCategory
-  paymentMethod TransactionPaymentMethod
-  date          DateTime
-  createdAt     DateTime                 @default(now())
-  updatedAt     DateTime                 @updatedAt
-  barbershopId  String
-  barbershop    Barbershop               @relation(fields: [barbershopId], references: [id])
-}
-
-enum ThemeType {
-  red
-  redDark
-  rose
-  roseDark
-  orange
-  orangeDark
-  green
-  greenDark
-  blue
-  blueDark
-  yellow
-  yellowDark
-  violet
-  violetDark
-}
-
 enum GestorType {
   ADMIN
   OWNER
@@ -234,6 +223,20 @@ enum SubscriptionStatus {
   EXPIRED    // Assinatura expirada
   PENDING    // Pagamento pendente
   CANCELLED  // Cancelada pelo usuário
+}
+
+model Transaction {
+  id            String                   @id @default(uuid())
+  name          String
+  type          TransactionType
+  amount        Decimal                  @db.Decimal(10, 2)
+  category      TransactionCategory
+  paymentMethod TransactionPaymentMethod
+  date          DateTime
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  barbershopId  String
+  barbershop    Barbershop               @relation(fields: [barbershopId], references: [id])
 }
 
 enum TransactionType {
