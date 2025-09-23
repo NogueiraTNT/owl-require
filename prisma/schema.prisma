@@ -100,6 +100,7 @@ model Barbershop {
   stateRegistration String?
   theme             ThemeType?
   zipCode           String?
+  verification      BarbershopVerification?
   gestor            Gestor              @relation(fields: [gestorid], references: [id])
   services          BarbershopService[]
   ratings           Rating[]
@@ -362,4 +363,9 @@ enum CustomerActivityType {
   DOWNGRADE          // Downgrade de plano
   PAYMENT_SUCCESS    // Pagamento realizado
   PAYMENT_FAILED     // Falha no pagamento
+}
+
+enum BarbershopVerification {
+  PIONEER    // Pioneiro - Badge dourado
+  VERIFIED   // Verificado - Badge azul
 }
