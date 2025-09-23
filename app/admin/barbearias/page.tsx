@@ -164,13 +164,13 @@ const AdminBarbershopsPage = async () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todos os estados</SelectItem>
-                {Array.from(new Set(barbershops.map((b) => b.state).filter(Boolean))).map(
-                  (state) => (
-                    <SelectItem key={state} value={state!}>
-                      {state}
-                    </SelectItem>
-                  ),
-                )}
+                {Array.from(
+                  new Set(barbershops.map((b) => b.state).filter(Boolean)),
+                ).map((state) => (
+                  <SelectItem key={state} value={state!}>
+                    {state}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <Select>

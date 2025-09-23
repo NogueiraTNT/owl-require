@@ -59,10 +59,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/app/_components/ui/dropdown-menu"
-import {
-  Avatar,
-  AvatarFallback,
-} from "@/app/_components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/app/_components/ui/avatar"
 import {
   Tabs,
   TabsContent,

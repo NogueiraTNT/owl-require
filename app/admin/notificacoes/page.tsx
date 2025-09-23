@@ -4,10 +4,7 @@ import {
   getEmailStatus,
   getNotificationSettings,
 } from "@/app/_actions/get-notifications-data"
-import {
-  formatDateTime,
-  formatDate,
-} from "@/app/_lib/notification-utils"
+import { formatDateTime, formatDate } from "@/app/_lib/notification-utils"
 import { getAdminSession } from "@/app/_actions/admin-signin"
 import { redirect } from "next/navigation"
 import {
