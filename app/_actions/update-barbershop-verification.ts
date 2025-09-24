@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/app/_lib/prisma"
-import { BarbershopVerification } from "@/app/generated/prisma"
+import { BarbershopVerification } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
 export const updateBarbershopVerification = async (
