@@ -6,7 +6,7 @@ import {
   updateBarbershopAdmin,
   UpdateBarbershopData,
 } from "@/app/_actions/update-barbershop-admin"
-import { BarbershopVerification, ThemeType } from "@/app/generated/prisma"
+import { BarbershopVerification, ThemeType } from "@prisma/client"
 import { Button } from "./button"
 import { Input } from "./input"
 import { Label } from "./label"

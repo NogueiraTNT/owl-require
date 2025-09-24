@@ -1,6 +1,6 @@
 "use client"
 
-import { BarbershopVerification } from "@/app/generated/prisma"
+import { BarbershopVerification } from "@prisma/client"
 import { Badge } from "./badge"
 
 interface VerificationBadgeProps {

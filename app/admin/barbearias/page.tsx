@@ -8,7 +8,7 @@ import {
 } from "@/app/_actions/get-barbershops"
 import { getBarbershopById } from "@/app/_actions/get-barbershop-by-id"
 import { getAdminSession } from "@/app/_actions/admin-signin"
-import { BarbershopVerification, ThemeType } from "@/app/generated/prisma"
+import { BarbershopVerification, ThemeType } from "@prisma/client"
 import { redirect } from "next/navigation"
 import {
   Card,

@@ -45,7 +45,7 @@ import {
   RevenueSource,
   CustomerActivityType,
   RecurringType,
-} from "@/app/generated/prisma"
+} from "@prisma/client"
 import {
   Card,
   CardContent,

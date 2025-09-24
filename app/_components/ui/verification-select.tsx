@@ -1,7 +1,13 @@
 "use client"
 
-import { BarbershopVerification } from "@/app/generated/prisma"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select"
+import { BarbershopVerification } from "@prisma/client"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./select"
 import { Label } from "./label"
 
 interface VerificationSelectProps {
@@ -10,7 +16,11 @@ interface VerificationSelectProps {
   label?: string
 }
 
-const VerificationSelect = ({ value, onValueChange, label = "Status de Verificação" }: VerificationSelectProps) => {
+const VerificationSelect = ({
+  value,
+  onValueChange,
+  label = "Status de Verificação",
+}: VerificationSelectProps) => {
   return (
     <div className="space-y-2">
       <Label htmlFor="verification">{label}</Label>
