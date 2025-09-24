@@ -12,7 +12,7 @@ export interface BarbershopWithGestor {
   stateRegistration: string | null
   phones: string[]
   zipCode: string | null
-  address: string | null
+  address: string
   number: string | null
   complement: string | null
   neighborhood: string | null
@@ -20,6 +20,11 @@ export interface BarbershopWithGestor {
   state: string | null
   description: string
   imageUrl: string
+  bannerUrl: string | null
+  theme: string | null
+  verification: string | null
+  latitude: number | null
+  longitude: number | null
   gestorid: string
   createdAt: Date
   updatedAt: Date
