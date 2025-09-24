@@ -7,13 +7,6 @@ const nextConfig: NextConfig = {
     if (isServer) {
       config.externals.push("whatsapp-web.js")
     }
-
-    // Configuração para o Prisma
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "@prisma/client": require.resolve("@prisma/client"),
-    }
-
     return config
   },
   images: {

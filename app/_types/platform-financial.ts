@@ -3,7 +3,7 @@ import {
   RecurringType,
   RevenueSource,
   CustomerActivityType,
-} from "@/app/generated/prisma"
+} from "@prisma/client"
 
 export interface PlatformExpense {
   id: string

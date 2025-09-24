@@ -3,7 +3,7 @@ import {
   RevenueSource,
   CustomerActivityType,
   RecurringType,
-} from "@/app/generated/prisma"
+} from "@prisma/client"
 
 // ==================== EXPENSE CATEGORIES ====================
 export const getExpenseCategoryIcon = (category: ExpenseCategory): string => {
