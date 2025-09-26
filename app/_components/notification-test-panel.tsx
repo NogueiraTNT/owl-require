@@ -244,7 +244,7 @@ export default function NotificationTestPanel() {
             <div className="py-8 text-center">
               <Clock className="mx-auto mb-2 h-8 w-8 text-muted-foreground" />
               <p className="text-muted-foreground">
-                Clique em "Atualizar" para verificar o status
+                Clique em &quot;Atualizar&quot; para verificar o status
               </p>
             </div>
           )}

@@ -53,7 +53,7 @@ interface NotificationStats {
 const AdminNotificationsPage = () => {
   const [adminSession, setAdminSession] = useState<AdminSession | null>(null)
   const [loading, setLoading] = useState(true)
-  const [stats, setStats] = useState<NotificationStats | null>(null)
+  const [stats] = useState<NotificationStats | null>(null)
 
   useEffect(() => {
     const initializeData = async () => {

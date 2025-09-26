@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Button } from "@/app/_components/ui/button"
 import {
   Card,
@@ -317,10 +318,12 @@ export default function WhatsAppAdminManager() {
             {qrCode && !status.connected && (
               <div className="space-y-4 text-center">
                 <div className="inline-block rounded-lg border-2 border-gray-200 bg-white p-4">
-                  <img
+                  <Image
                     src={qrCode}
                     alt="QR Code WhatsApp"
-                    className="mx-auto h-64 w-64"
+                    width={256}
+                    height={256}
+                    className="mx-auto"
                   />
                 </div>
 

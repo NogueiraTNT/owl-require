@@ -255,7 +255,7 @@ export const resetAdminPassword = async (id: string, newPassword: string) => {
 }
 
 // ==================== ACTIVITY LOG ====================
-export const getAdminActivity = async (_adminId: string) => {
+export const getAdminActivity = async () => {
   try {
     // Aqui você pode implementar um sistema de logs de atividade
     // Por enquanto, retornamos dados mockados
