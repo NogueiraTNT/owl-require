@@ -1,7 +1,7 @@
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
-} 
+}
 
 datasource db {
   provider = "postgresql"
@@ -10,13 +10,13 @@ datasource db {
 
 model User {
   id            String          @id @default(cuid())
-  email         String          @unique
   name          String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  email         String          @unique
   emailVerified DateTime?
   image         String?
-  phone         String?
+  phone         String?         // Telefone do cliente para notificações
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   accounts      Account[]
   Authenticator Authenticator[]
   bookings      Booking[]
@@ -76,37 +76,36 @@ model Authenticator {
 
 model Barbershop {
   id                String              @id @default(uuid())
-  name              String
-  address           String
-  phones            String[]
+  code              String?             // Código único para suporte
+  name              String              // Nome Fantasia
+  corporateName     String?             // Razão Social
+  cnae              String?             // CNAE
+  cpfCnpj           String?             // CPF/CNPJ
+  stateRegistration String?             // Inscrição Estadual (opcional para CPF)
+  phones            String[]            // Telefones (pode ter múltiplos)
+  zipCode           String?             // CEP
+  address           String              // Endereço
+  number            String?             // Número
+  complement        String?             // Complemento (opcional)
+  neighborhood      String?             // Bairro
+  city              String?             // Cidade
+  state             String?             // Estado
   description       String
   imageUrl          String
+  bannerUrl         String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  bannerUrl         String?
-  city              String?
-  cnae              String?
-  code              String?
-  complement        String?
-  corporateName     String?
-  cpfCnpj           String?
   gestorid          String
   latitude          Float?
   longitude         Float?
-  neighborhood      String?
-  number            String?
-  state             String?
-  stateRegistration String?
   theme             ThemeType?
-  zipCode           String?
   verification      BarbershopVerification?
   gestor            Gestor              @relation(fields: [gestorid], references: [id])
   services          BarbershopService[]
   ratings           Rating[]
   transactions      Transaction[]
   workers           Worker[]
-  revenues          PlatformRevenue[]
-  activities        CustomerActivity[]
+  notificationSettings NotificationSettings?
 }
 
 model BarbershopService {
@@ -125,12 +124,12 @@ model Booking {
   id          String            @id @default(uuid())
   userId      String?
   serviceId   String
+  workerId    String
   date        DateTime
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
   clientName  String?
   clientPhone String?
-  workerId    String
   service     BarbershopService @relation(fields: [serviceId], references: [id])
   user        User?             @relation(fields: [userId], references: [id])
   worker      Worker            @relation(fields: [workerId], references: [id])
@@ -140,8 +139,8 @@ model Booking {
 model Worker {
   id           String     @id @default(uuid())
   name         String
-  email        String?
-  phone        String?
+  email        String?    // Email do barbeiro para notificações
+  phone        String?    // Telefone do barbeiro para notificações
   imageUrl     String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
@@ -164,7 +163,7 @@ model Rating {
   id           String     @id @default(uuid())
   barbershopId String
   userId       String?
-  bookingId    String     @unique
+  bookingId    String     @unique 
   rate         Int
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   booking      Booking    @relation(fields: [bookingId], references: [id])
@@ -172,20 +171,20 @@ model Rating {
 }
 
 model Gestor {
-  id                    String              @id @default(uuid())
+  id                    String       @id @default(uuid())
   name                  String?
-  email                 String              @unique
+  email                 String       @unique
   password              String
   image                 String?
-  createdAt             DateTime            @default(now())
-  updatedAt             DateTime            @updatedAt
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
   type                  GestorType
   plan                  PlanType?
-  planStartDate         DateTime?
-  planEndDate           DateTime?
-  subscriptionStatus    SubscriptionStatus? @default(INACTIVE)
-  mercadoPagoCustomerId String?
-  lastPaymentId         String?
+  planStartDate         DateTime?    // Data de início da assinatura
+  planEndDate           DateTime?    // Data de término da assinatura
+  subscriptionStatus    SubscriptionStatus? @default(INACTIVE) // Status da assinatura
+  mercadoPagoCustomerId String?      // ID do cliente no Mercado Pago
+  lastPaymentId         String?      // ID do último pagamento
   barbershopid          Barbershop[]
 }
 
@@ -201,19 +200,6 @@ model Transaction {
   updatedAt     DateTime                 @updatedAt
   barbershopId  String
   barbershop    Barbershop               @relation(fields: [barbershopId], references: [id])
-}
-
-model Admin {
-  id        String    @id @default(uuid())
-  name      String
-  email     String    @unique
-  password  String
-  type      AdminType
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  
-  // Relacionamentos
-  expenses  PlatformExpense[]
 }
 
 enum ThemeType {
@@ -246,11 +232,11 @@ enum PlanType {
 }
 
 enum SubscriptionStatus {
-  ACTIVE
-  INACTIVE
-  EXPIRED
-  PENDING
-  CANCELLED
+  ACTIVE     // Assinatura ativa
+  INACTIVE   // Sem assinatura ou cancelada
+  EXPIRED    // Assinatura expirada
+  PENDING    // Pagamento pendente
+  CANCELLED  // Cancelada pelo usuário
 }
 
 enum TransactionType {
@@ -278,90 +264,37 @@ enum TransactionPaymentMethod {
   OTHER
 }
 
+model Admin {
+  id        String    @id @default(uuid())
+  name      String    // Nome para identificar o funcionário
+  email     String    @unique // Email para acesso
+  password  String    // Senha para acesso
+  type      AdminType // Tipo de acesso: Suporte ou Admin
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model NotificationSettings {
+  id                    String   @id @default(uuid())
+  barbershopId          String   @unique
+  // Notificações para cliente
+  clientEmailEnabled    Boolean  @default(true)
+  clientWhatsAppEnabled Boolean  @default(true)
+  // Notificações para barbeiro
+  workerEmailEnabled    Boolean  @default(true)
+  workerWhatsAppEnabled Boolean  @default(true)
+  // Notificações para dono da barbearia
+  ownerEmailEnabled     Boolean  @default(true)
+  ownerWhatsAppEnabled  Boolean  @default(false)
+  // Configurações gerais
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  barbershop            Barbershop @relation(fields: [barbershopId], references: [id], onDelete: Cascade)
+}
+
 enum AdminType {
   SUPORTE
   ADMIN
-}
-
-// ==================== PLATFORM FINANCIAL CONTROL ====================
-model PlatformExpense {
-  id          String            @id @default(uuid())
-  name        String            // Nome da despesa
-  description String?           // Descrição opcional
-  amount      Decimal           @db.Decimal(10, 2) // Valor da despesa
-  category    ExpenseCategory   // Categoria da despesa
-  date        DateTime          // Data da despesa
-  receipt     String?           // URL do comprovante (opcional)
-  isRecurring Boolean           @default(false) // Se é uma despesa recorrente
-  recurringType RecurringType?  // Tipo de recorrência (se aplicável)
-  createdBy   String            // ID do admin que criou
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  
-  // Relacionamentos
-  admin       Admin             @relation(fields: [createdBy], references: [id])
-}
-
-model PlatformRevenue {
-  id          String            @id @default(uuid())
-  source      RevenueSource     // Fonte da receita
-  amount      Decimal           @db.Decimal(10, 2) // Valor da receita
-  description String?           // Descrição opcional
-  date        DateTime          // Data da receita
-  barbershopId String?          // ID da barbearia (se aplicável)
-  subscriptionId String?        // ID da assinatura (se aplicável)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  
-  // Relacionamentos
-  barbershop  Barbershop?       @relation(fields: [barbershopId], references: [id])
-}
-
-model CustomerActivity {
-  id          String            @id @default(uuid())
-  barbershopId String           // ID da barbearia
-  activity    CustomerActivityType // Tipo de atividade
-  amount      Decimal?          @db.Decimal(10, 2) // Valor (se aplicável)
-  description String?           // Descrição da atividade
-  date        DateTime          // Data da atividade
-  createdAt   DateTime          @default(now())
-  
-  // Relacionamentos
-  barbershop  Barbershop        @relation(fields: [barbershopId], references: [id])
-}
-
-enum ExpenseCategory {
-  SERVER      // Servidor/hosting
-  MARKETING   // Marketing e publicidade
-  DEVELOPMENT // Desenvolvimento
-  SUPPORT     // Suporte técnico
-  OFFICE      // Escritório
-  LEGAL       // Jurídico
-  OTHER       // Outros
-}
-
-enum RecurringType {
-  MONTHLY     // Mensal
-  QUARTERLY   // Trimestral
-  YEARLY      // Anual
-}
-
-enum RevenueSource {
-  SUBSCRIPTION    // Assinatura mensal
-  COMMISSION      // Comissão por transação
-  SETUP_FEE       // Taxa de setup
-  PREMIUM_FEATURE // Recursos premium
-  OTHER           // Outros
-}
-
-enum CustomerActivityType {
-  NEW_SUBSCRIPTION    // Nova assinatura
-  RENEWAL            // Renovação
-  CANCELLATION       // Cancelamento
-  UPGRADE            // Upgrade de plano
-  DOWNGRADE          // Downgrade de plano
-  PAYMENT_SUCCESS    // Pagamento realizado
-  PAYMENT_FAILED     // Falha no pagamento
 }
 
 enum BarbershopVerification {

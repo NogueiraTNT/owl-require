@@ -126,11 +126,11 @@ const GestoresPage = async () => {
             <CardTitle className="text-sm font-medium">
               Total de Gestores
             </CardTitle>
-            <Users className="text-muted-foreground h-4 w-4" />
+            <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{gestores.length}</div>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               Gestores cadastrados
             </p>
           </CardContent>
@@ -141,7 +141,7 @@ const GestoresPage = async () => {
             <CardTitle className="text-sm font-medium">
               Assinaturas Ativas
             </CardTitle>
-            <CreditCard className="text-muted-foreground h-4 w-4" />
+            <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -151,7 +151,7 @@ const GestoresPage = async () => {
                 ).length
               }
             </div>
-            <p className="text-muted-foreground text-xs">Com planos ativos</p>
+            <p className="text-xs text-muted-foreground">Com planos ativos</p>
           </CardContent>
         </Card>
 
@@ -160,7 +160,7 @@ const GestoresPage = async () => {
             <CardTitle className="text-sm font-medium">
               Total Barbearias
             </CardTitle>
-            <Building2 className="text-muted-foreground h-4 w-4" />
+            <Building2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -169,7 +169,7 @@ const GestoresPage = async () => {
                 0,
               )}
             </div>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               Barbearias registradas
             </p>
           </CardContent>
@@ -180,7 +180,7 @@ const GestoresPage = async () => {
             <CardTitle className="text-sm font-medium">
               Pagamentos Pendentes
             </CardTitle>
-            <AlertCircle className="text-muted-foreground h-4 w-4" />
+            <AlertCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -190,7 +190,7 @@ const GestoresPage = async () => {
                 ).length
               }
             </div>
-            <p className="text-muted-foreground text-xs">Precisam atenção</p>
+            <p className="text-xs text-muted-foreground">Precisam atenção</p>
           </CardContent>
         </Card>
       </div>
@@ -203,7 +203,7 @@ const GestoresPage = async () => {
         <CardContent>
           {gestores.length === 0 ? (
             <div className="py-8 text-center">
-              <Users className="text-muted-foreground mx-auto h-12 w-12" />
+              <Users className="mx-auto h-12 w-12 text-muted-foreground" />
               <h3 className="mt-2 text-sm font-semibold text-gray-900">
                 Nenhum gestor encontrado
               </h3>
@@ -224,12 +224,12 @@ const GestoresPage = async () => {
               {gestores.map((gestor) => (
                 <div
                   key={gestor.id}
-                  className="hover:bg-accent/50 flex items-center justify-between rounded-lg border p-4 transition-colors"
+                  className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-accent/50"
                 >
                   <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0">
-                      <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-                        <span className="text-primary font-semibold">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                        <span className="font-semibold text-primary">
                           {gestor.name?.charAt(0).toUpperCase() || "?"}
                         </span>
                       </div>
