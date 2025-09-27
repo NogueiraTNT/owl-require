@@ -7,9 +7,8 @@ import {
   sendBookingCancellation,
   sendBookingReschedule,
   sendTestMessage,
-  getTwilioStatus,
-  getRecentMessages,
-} from "@/app/_lib/twilio-service"
+  getNotificationStatus,
+} from "@/app/_lib/notification-service"
 
 export interface NotificationResult {
   success: boolean
@@ -393,18 +392,20 @@ export const sendTestNotification = async (
 }
 
 /**
- * Obtém status do Twilio
+ * Obtém status do serviço de notificação
  */
 export const getNotificationServiceStatus = async () => {
   try {
-    const twilioStatus = await getTwilioStatus()
+    const notificationStatus = await getNotificationStatus()
 
     return {
-      twilio: twilioStatus,
-      whatsapp: {
-        enabled: twilioStatus.connected,
-        provider: "Twilio",
-        status: twilioStatus.connected ? "connected" : "disconnected",
+      notification: {
+        enabled: notificationStatus.connected,
+        provider: notificationStatus.provider,
+        status: notificationStatus.connected ? "connected" : "disconnected",
+        messagesSent: notificationStatus.messagesSent,
+        lastMessage: notificationStatus.lastMessage,
+        error: notificationStatus.error,
       },
       email: {
         enabled: false,
@@ -424,12 +425,13 @@ export const getNotificationServiceStatus = async () => {
 }
 
 /**
- * Obtém mensagens recentes do Twilio
+ * Obtém mensagens recentes do serviço de notificação
  */
 export const getRecentNotificationMessages = async () => {
   try {
-    const messages = await getRecentMessages()
-    return messages
+    // Serviço de desenvolvimento - retorna array vazio
+    // Em produção, implemente persistência no banco de dados
+    return []
   } catch (error) {
     console.error("Erro ao obter mensagens recentes:", error)
     throw new Error("Erro ao obter mensagens recentes")

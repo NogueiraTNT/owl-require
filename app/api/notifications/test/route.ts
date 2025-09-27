@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
       messageId: result.messageId,
       error: result.error,
       channel: result.channel,
+      provider: "Development Service",
     })
   } catch (error) {
     console.error("Erro ao enviar mensagem de teste:", error)
@@ -48,7 +49,11 @@ export async function GET() {
   try {
     const status = await getNotificationServiceStatus()
 
-    return NextResponse.json(status)
+    return NextResponse.json({
+      success: true,
+      status,
+      provider: "Development Service",
+    })
   } catch (error) {
     console.error("Erro ao obter status dos serviços:", error)
     return NextResponse.json(
