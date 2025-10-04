@@ -118,12 +118,7 @@ export default function AdminDatabaseClient({
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [systemStats] = useState<{
-    memoryUsage: number
-    cpuUsage: number
-    diskUsage: number
-    uptime: number
-  } | null>(null)
+  // Removed unused systemStats state
 
   const handleModelAction = async (
     modelName: string,
@@ -136,7 +131,7 @@ export default function AdminDatabaseClient({
     setIsModalOpen(true)
   }
 
-  const handleSave = async (formData: any) => {
+  const handleSave = async (formData: Record<string, unknown>) => {
     if (!selectedModel) return
 
     setIsLoading(true)
@@ -144,65 +139,65 @@ export default function AdminDatabaseClient({
       switch (selectedModel) {
         case "User":
           if (modalMode === "create") {
-            await createUser(formData)
+            await createUser(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateUser(modalData.id as string, formData)
+            await updateUser(modalData.id as string, formData as any)
           }
           break
         case "Gestor":
           if (modalMode === "create") {
-            await createGestor(formData)
+            await createGestor(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateGestor(modalData.id as string, formData)
+            await updateGestor(modalData.id as string, formData as any)
           }
           break
         case "Barbershop":
           if (modalMode === "create") {
-            await createBarbershop(formData)
+            await createBarbershop(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateBarbershop(modalData.id as string, formData)
+            await updateBarbershop(modalData.id as string, formData as any)
           }
           break
         case "BarbershopService":
           if (modalMode === "create") {
-            await createService(formData)
+            await createService(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateService(modalData.id as string, formData)
+            await updateService(modalData.id as string, formData as any)
           }
           break
         case "Worker":
           if (modalMode === "create") {
-            await createWorker(formData)
+            await createWorker(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateWorker(modalData.id as string, formData)
+            await updateWorker(modalData.id as string, formData as any)
           }
           break
         case "Booking":
           if (modalMode === "create") {
-            await createBooking(formData)
+            await createBooking(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateBooking(modalData.id as string, formData)
+            await updateBooking(modalData.id as string, formData as any)
           }
           break
         case "Transaction":
           if (modalMode === "create") {
-            await createTransaction(formData)
+            await createTransaction(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateTransaction(modalData.id as string, formData)
+            await updateTransaction(modalData.id as string, formData as any)
           }
           break
         case "Rating":
           if (modalMode === "create") {
-            await createRating(formData)
+            await createRating(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateRating(modalData.id as string, formData)
+            await updateRating(modalData.id as string, formData as any)
           }
           break
         case "Admin":
           if (modalMode === "create") {
-            await createAdmin(formData)
+            await createAdmin(formData as any)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateAdmin(modalData.id as string, formData)
+            await updateAdmin(modalData.id as string, formData as any)
           }
           break
       }
