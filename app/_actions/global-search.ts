@@ -13,7 +13,7 @@ interface SearchResult {
   id: string
   model: string
   modelDisplayName: string
-  data: any
+  data: Record<string, unknown>
   score: number
 }
 
@@ -317,20 +317,20 @@ export async function globalSearch(
         return sortOrder === "desc" ? b.score - a.score : a.score - b.score
       }
       if (sortBy === "name") {
-        const nameA = a.data.name || ""
-        const nameB = b.data.name || ""
+        const nameA = (a.data.name as string) || ""
+        const nameB = (b.data.name as string) || ""
         return sortOrder === "desc"
           ? nameB.localeCompare(nameA)
           : nameA.localeCompare(nameB)
       }
       if (sortBy === "created") {
-        const dateA = new Date(a.data.createdAt || 0).getTime()
-        const dateB = new Date(b.data.createdAt || 0).getTime()
+        const dateA = new Date((a.data.createdAt as string) || 0).getTime()
+        const dateB = new Date((b.data.createdAt as string) || 0).getTime()
         return sortOrder === "desc" ? dateB - dateA : dateA - dateB
       }
       if (sortBy === "updated") {
-        const dateA = new Date(a.data.updatedAt || 0).getTime()
-        const dateB = new Date(b.data.updatedAt || 0).getTime()
+        const dateA = new Date((a.data.updatedAt as string) || 0).getTime()
+        const dateB = new Date((b.data.updatedAt as string) || 0).getTime()
         return sortOrder === "desc" ? dateB - dateA : dateA - dateB
       }
       return 0

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/app/_components/ui/button"
 import { Input } from "@/app/_components/ui/input"
 import {
@@ -19,7 +19,12 @@ import {
   TableRow,
 } from "@/app/_components/ui/table"
 import { Badge } from "@/app/_components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/app/_components/ui/card"
 import { Search, Filter, SortAsc, SortDesc } from "lucide-react"
 import { globalSearch } from "@/app/_actions/global-search"
 
@@ -27,7 +32,7 @@ interface SearchResult {
   id: string
   model: string
   modelDisplayName: string
-  data: any
+  data: Record<string, unknown>
   score: number
 }
 
@@ -193,7 +198,10 @@ export default function AdminSearch({ onResultSelect }: AdminSearchProps) {
                 <SortDesc className="h-4 w-4" />
               )}
             </Button>
-            <Button onClick={handleSearch} disabled={isLoading || !searchTerm.trim()}>
+            <Button
+              onClick={handleSearch}
+              disabled={isLoading || !searchTerm.trim()}
+            >
               <Search className="mr-1 h-4 w-4" />
               {isLoading ? "Buscando..." : "Buscar"}
             </Button>
@@ -216,12 +224,12 @@ export default function AdminSearch({ onResultSelect }: AdminSearchProps) {
           <CardContent>
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
                 <span className="ml-2">Buscando...</span>
               </div>
             ) : results.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                Nenhum resultado encontrado para "{searchTerm}"
+              <div className="py-8 text-center text-muted-foreground">
+                Nenhum resultado encontrado para &quot;{searchTerm}&quot;
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -253,7 +261,7 @@ export default function AdminSearch({ onResultSelect }: AdminSearchProps) {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <div className="text-sm text-muted-foreground max-w-md truncate">
+                          <div className="max-w-md truncate text-sm text-muted-foreground">
                             {formatResultData(result)}
                           </div>
                         </TableCell>

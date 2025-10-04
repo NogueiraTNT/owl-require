@@ -2,52 +2,7 @@ import { getDatabaseStats } from "@/app/_actions/database-crud"
 import { getAdminSession } from "@/app/_actions/admin-signin"
 import { redirect } from "next/navigation"
 import AdminDatabaseClient from "./admin-database-client"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/app/_components/ui/card"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/app/_components/ui/table"
-import { Badge } from "@/app/_components/ui/badge"
-import { Button } from "@/app/_components/ui/button"
-import {
-  Database,
-  Plus,
-  Edit,
-  Trash2,
-  Eye,
-  Search,
-  Download,
-  Upload,
-  RefreshCw,
-  AlertTriangle,
-  CheckCircle,
-  BarChart3,
-  Settings,
-} from "lucide-react"
-import { Input } from "@/app/_components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/app/_components/ui/select"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/_components/ui/tabs"
+// Removed unused imports
 
 const AdminDatabasePage = async () => {
   const adminSession = await getAdminSession()
@@ -62,81 +17,125 @@ const AdminDatabasePage = async () => {
     {
       name: "User",
       displayName: "Usuários",
-      icon: "👤",
-      count: stats.usersCount,
-      description: "Clientes cadastrados no sistema",
-      color: "bg-blue-100 text-blue-800",
+      tableName: "User",
+      recordCount: stats.usersCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "email", type: "string", required: true },
+        { name: "phone", type: "string", required: false },
+      ],
     },
     {
       name: "Gestor",
       displayName: "Gestores",
-      icon: "👨‍💼",
-      count: stats.gestorsCount,
-      description: "Gestores de barbearias",
-      color: "bg-green-100 text-green-800",
+      tableName: "Gestor",
+      recordCount: stats.gestorsCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "email", type: "string", required: true },
+        { name: "type", type: "string", required: true },
+      ],
     },
     {
       name: "Barbershop",
       displayName: "Barbearias",
-      icon: "🏪",
-      count: stats.barbershopsCount,
-      description: "Barbearias cadastradas",
-      color: "bg-purple-100 text-purple-800",
+      tableName: "Barbershop",
+      recordCount: stats.barbershopsCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "address", type: "string", required: true },
+        { name: "phone", type: "string", required: false },
+      ],
     },
     {
       name: "BarbershopService",
       displayName: "Serviços",
-      icon: "✂️",
-      count: stats.servicesCount,
-      description: "Serviços oferecidos",
-      color: "bg-orange-100 text-orange-800",
+      tableName: "BarbershopService",
+      recordCount: stats.servicesCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "description", type: "string", required: false },
+        { name: "price", type: "number", required: true },
+      ],
     },
     {
       name: "Worker",
       displayName: "Barbeiros",
-      icon: "👨‍💼",
-      count: stats.workersCount,
-      description: "Barbeiros cadastrados",
-      color: "bg-cyan-100 text-cyan-800",
+      tableName: "Worker",
+      recordCount: stats.workersCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "email", type: "string", required: false },
+        { name: "phone", type: "string", required: false },
+      ],
     },
     {
       name: "Booking",
       displayName: "Agendamentos",
-      icon: "📅",
-      count: stats.bookingsCount,
-      description: "Agendamentos realizados",
-      color: "bg-pink-100 text-pink-800",
+      tableName: "Booking",
+      recordCount: stats.bookingsCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "date", type: "date", required: true },
+        { name: "time", type: "string", required: true },
+        { name: "status", type: "string", required: true },
+      ],
     },
     {
       name: "Transaction",
       displayName: "Transações",
-      icon: "💰",
-      count: stats.transactionsCount,
-      description: "Transações financeiras",
-      color: "bg-emerald-100 text-emerald-800",
+      tableName: "Transaction",
+      recordCount: stats.transactionsCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "amount", type: "number", required: true },
+        { name: "type", type: "string", required: true },
+        { name: "status", type: "string", required: true },
+      ],
     },
     {
       name: "Rating",
       displayName: "Avaliações",
-      icon: "⭐",
-      count: stats.ratingsCount,
-      description: "Avaliações de serviços",
-      color: "bg-yellow-100 text-yellow-800",
+      tableName: "Rating",
+      recordCount: stats.ratingsCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "rate", type: "number", required: true },
+        { name: "comment", type: "string", required: false },
+        { name: "createdAt", type: "date", required: true },
+      ],
     },
     {
       name: "Admin",
       displayName: "Administradores",
-      icon: "👑",
-      count: stats.adminsCount,
-      description: "Administradores do sistema",
-      color: "bg-red-100 text-red-800",
+      tableName: "Admin",
+      recordCount: stats.adminsCount,
+      fields: [
+        { name: "id", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "email", type: "string", required: true },
+        { name: "type", type: "string", required: true },
+      ],
     },
   ]
+
+  const statsWithTableStats = {
+    ...stats,
+    tableStats: models.map((model) => ({
+      tableName: model.tableName,
+      recordCount: model.recordCount,
+    })),
+  }
 
   return (
     <AdminDatabaseClient
       adminSession={adminSession}
-      stats={stats}
+      stats={statsWithTableStats}
       models={models}
     />
   )

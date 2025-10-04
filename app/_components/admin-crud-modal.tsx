@@ -38,8 +38,8 @@ interface CrudModalProps {
   mode: "create" | "edit" | "view" | "delete"
   modelName: string
   modelDisplayName: string
-  data?: any
-  onSave?: (data: any) => Promise<void>
+  data?: Record<string, unknown>
+  onSave?: (data: Record<string, unknown>) => Promise<void>
   onDelete?: (id: string) => Promise<void>
 }
 
@@ -159,7 +159,7 @@ export default function CrudModal({
 
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: data || {},
+    defaultValues: (data as FormData) || {},
   })
 
   const handleSave = async (formData: FormData) => {
@@ -167,7 +167,7 @@ export default function CrudModal({
 
     setIsLoading(true)
     try {
-      await onSave(formData)
+      await onSave(formData as Record<string, unknown>)
       onClose()
       form.reset()
     } catch (error) {
@@ -182,7 +182,7 @@ export default function CrudModal({
 
     setIsLoading(true)
     try {
-      await onDelete(data.id)
+      await onDelete(data.id as string)
       onClose()
     } catch (error) {
       console.error("Erro ao deletar:", error)
@@ -195,7 +195,7 @@ export default function CrudModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
             {mode === "create" && `Criar ${modelDisplayName}`}
@@ -204,10 +204,14 @@ export default function CrudModal({
             {mode === "delete" && `Deletar ${modelDisplayName}`}
           </DialogTitle>
           <DialogDescription>
-            {mode === "create" && `Criar um novo ${modelDisplayName.toLowerCase()}`}
-            {mode === "edit" && `Editar dados do ${modelDisplayName.toLowerCase()}`}
-            {mode === "view" && `Visualizar dados do ${modelDisplayName.toLowerCase()}`}
-            {mode === "delete" && `Tem certeza que deseja deletar este ${modelDisplayName.toLowerCase()}?`}
+            {mode === "create" &&
+              `Criar um novo ${modelDisplayName.toLowerCase()}`}
+            {mode === "edit" &&
+              `Editar dados do ${modelDisplayName.toLowerCase()}`}
+            {mode === "view" &&
+              `Visualizar dados do ${modelDisplayName.toLowerCase()}`}
+            {mode === "delete" &&
+              `Tem certeza que deseja deletar este ${modelDisplayName.toLowerCase()}?`}
           </DialogDescription>
         </DialogHeader>
 
@@ -220,8 +224,11 @@ export default function CrudModal({
           </div>
         ) : (
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSave)} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form
+              onSubmit={form.handleSubmit(handleSave)}
+              className="space-y-4"
+            >
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="name"
@@ -262,7 +269,7 @@ export default function CrudModal({
                     />
                     <FormField
                       control={form.control}
-                      name="phone"
+                      name="phones"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Telefone</FormLabel>
@@ -318,8 +325,12 @@ export default function CrudModal({
                             </FormControl>
                             <SelectContent>
                               <SelectItem value="ADMIN">Admin</SelectItem>
-                              <SelectItem value="OWNER">Proprietário</SelectItem>
-                              <SelectItem value="WORKER">Trabalhador</SelectItem>
+                              <SelectItem value="OWNER">
+                                Proprietário
+                              </SelectItem>
+                              <SelectItem value="WORKER">
+                                Trabalhador
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -487,7 +498,7 @@ export default function CrudModal({
                     />
                     <FormField
                       control={form.control}
-                      name="phone"
+                      name="phones"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Telefone</FormLabel>
@@ -526,7 +537,9 @@ export default function CrudModal({
                             <SelectContent>
                               <SelectItem value="DEPOSIT">Depósito</SelectItem>
                               <SelectItem value="EXPENSE">Despesa</SelectItem>
-                              <SelectItem value="INVESTMENT">Investimento</SelectItem>
+                              <SelectItem value="INVESTMENT">
+                                Investimento
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -571,10 +584,16 @@ export default function CrudModal({
                             <SelectContent>
                               <SelectItem value="SALARY">Salário</SelectItem>
                               <SelectItem value="FOOD">Alimentação</SelectItem>
-                              <SelectItem value="TRANSPORT">Transporte</SelectItem>
+                              <SelectItem value="TRANSPORT">
+                                Transporte
+                              </SelectItem>
                               <SelectItem value="HOUSING">Moradia</SelectItem>
-                              <SelectItem value="UTILITIES">Utilidades</SelectItem>
-                              <SelectItem value="BARBERSHOP">Barbearia</SelectItem>
+                              <SelectItem value="UTILITIES">
+                                Utilidades
+                              </SelectItem>
+                              <SelectItem value="BARBERSHOP">
+                                Barbearia
+                              </SelectItem>
                               <SelectItem value="OTHER">Outro</SelectItem>
                             </SelectContent>
                           </Select>
@@ -599,9 +618,15 @@ export default function CrudModal({
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="CREDIT_CARD">Cartão de Crédito</SelectItem>
-                              <SelectItem value="DEBIT_CARD">Cartão de Débito</SelectItem>
-                              <SelectItem value="BANK_TRANSFER">Transferência</SelectItem>
+                              <SelectItem value="CREDIT_CARD">
+                                Cartão de Crédito
+                              </SelectItem>
+                              <SelectItem value="DEBIT_CARD">
+                                Cartão de Débito
+                              </SelectItem>
+                              <SelectItem value="BANK_TRANSFER">
+                                Transferência
+                              </SelectItem>
                               <SelectItem value="PIX">PIX</SelectItem>
                               <SelectItem value="CASH">Dinheiro</SelectItem>
                               <SelectItem value="OTHER">Outro</SelectItem>

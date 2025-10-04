@@ -260,20 +260,58 @@ const notificationService = NotificationService.getInstance()
 
 // Exportar funções para compatibilidade
 export const getNotificationStatus = () => notificationService.getStatus()
-export const sendNotification = (to: string, message: string, options?: any) =>
-  notificationService.sendNotification(to, message, options)
+export const sendNotification = (
+  to: string,
+  message: string,
+  options?: Record<string, unknown>,
+) => notificationService.sendNotification(to, message, options)
 export const sendBookingConfirmation = (
   phoneNumber: string,
-  bookingData: any,
+  bookingData: {
+    clientName: string
+    serviceName: string
+    barbershopName: string
+    workerName: string
+    date: string
+    time: string
+  },
 ) => notificationService.sendBookingConfirmation(phoneNumber, bookingData)
-export const sendBookingReminder = (phoneNumber: string, bookingData: any) =>
-  notificationService.sendBookingReminder(phoneNumber, bookingData)
+export const sendBookingReminder = (
+  phoneNumber: string,
+  bookingData: {
+    clientName: string
+    serviceName: string
+    barbershopName: string
+    workerName: string
+    date: string
+    time: string
+    reminderTime: string
+  },
+) => notificationService.sendBookingReminder(phoneNumber, bookingData)
 export const sendBookingCancellation = (
   phoneNumber: string,
-  bookingData: any,
+  bookingData: {
+    clientName: string
+    serviceName: string
+    barbershopName: string
+    date: string
+    time: string
+    reason?: string
+  },
 ) => notificationService.sendBookingCancellation(phoneNumber, bookingData)
-export const sendBookingReschedule = (phoneNumber: string, bookingData: any) =>
-  notificationService.sendBookingReschedule(phoneNumber, bookingData)
+export const sendBookingReschedule = (
+  phoneNumber: string,
+  bookingData: {
+    clientName: string
+    serviceName: string
+    barbershopName: string
+    workerName: string
+    oldDate: string
+    oldTime: string
+    newDate: string
+    newTime: string
+  },
+) => notificationService.sendBookingReschedule(phoneNumber, bookingData)
 export const sendTestMessage = (phoneNumber: string) =>
   notificationService.sendTestMessage(phoneNumber)
 export const getNotificationStats = () => notificationService.getStats()

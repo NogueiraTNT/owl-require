@@ -89,7 +89,13 @@ export async function analyzeDatabasePerformance() {
       FROM pg_stats 
       WHERE schemaname = 'public'
       ORDER BY tablename, attname
-    `) as any[]
+    `) as Array<{
+      schemaname: string
+      tablename: string
+      attname: string
+      n_distinct: number
+      correlation: number
+    }>
 
     const tableSizes = (await db.$queryRaw`
       SELECT 
@@ -99,7 +105,11 @@ export async function analyzeDatabasePerformance() {
       FROM pg_tables 
       WHERE schemaname = 'public'
       ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC
-    `) as any[]
+    `) as Array<{
+      schemaname: string
+      tablename: string
+      size: string
+    }>
 
     const indexUsage = (await db.$queryRaw`
       SELECT 
@@ -112,7 +122,14 @@ export async function analyzeDatabasePerformance() {
       FROM pg_stat_user_indexes 
       WHERE schemaname = 'public'
       ORDER BY idx_scan DESC
-    `) as any[]
+    `) as Array<{
+      schemaname: string
+      tablename: string
+      indexname: string
+      idx_scan: number
+      idx_tup_read: number
+      idx_tup_fetch: number
+    }>
 
     return {
       success: true,
