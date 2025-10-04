@@ -118,7 +118,7 @@ export default function AdminDatabaseClient({
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [systemStats, setSystemStats] = useState<{
+  const [systemStats] = useState<{
     memoryUsage: number
     cpuUsage: number
     diskUsage: number
@@ -271,13 +271,7 @@ export default function AdminDatabaseClient({
           toast.success("Dados exportados com sucesso!")
           break
         case "analyze":
-          const analysis = await analyzeDatabasePerformance()
-          setSystemStats({
-            memoryUsage: 0,
-            cpuUsage: 0,
-            diskUsage: 0,
-            uptime: 0,
-          })
+          await analyzeDatabasePerformance()
           toast.success("Análise do banco concluída!")
           break
         case "cache":
@@ -290,13 +284,7 @@ export default function AdminDatabaseClient({
           toast.success("Verificação de integridade concluída!")
           break
         case "stats":
-          const stats = await getSystemStatistics()
-          setSystemStats({
-            memoryUsage: 0,
-            cpuUsage: 0,
-            diskUsage: 0,
-            uptime: 0,
-          })
+          await getSystemStatistics()
           toast.success("Estatísticas atualizadas!")
           break
       }
