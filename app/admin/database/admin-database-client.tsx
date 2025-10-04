@@ -77,6 +77,10 @@ import {
 } from "@/app/_actions/database-crud"
 import { toast } from "sonner"
 
+// Tipos genéricos para as funções CRUD
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CrudData = any
+
 interface AdminDatabaseClientProps {
   adminSession: {
     id: string
@@ -139,65 +143,68 @@ export default function AdminDatabaseClient({
       switch (selectedModel) {
         case "User":
           if (modalMode === "create") {
-            await createUser(formData as any)
+            await createUser(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateUser(modalData.id as string, formData as any)
+            await updateUser(modalData.id as string, formData as CrudData)
           }
           break
         case "Gestor":
           if (modalMode === "create") {
-            await createGestor(formData as any)
+            await createGestor(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateGestor(modalData.id as string, formData as any)
+            await updateGestor(modalData.id as string, formData as CrudData)
           }
           break
         case "Barbershop":
           if (modalMode === "create") {
-            await createBarbershop(formData as any)
+            await createBarbershop(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateBarbershop(modalData.id as string, formData as any)
+            await updateBarbershop(modalData.id as string, formData as CrudData)
           }
           break
         case "BarbershopService":
           if (modalMode === "create") {
-            await createService(formData as any)
+            await createService(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateService(modalData.id as string, formData as any)
+            await updateService(modalData.id as string, formData as CrudData)
           }
           break
         case "Worker":
           if (modalMode === "create") {
-            await createWorker(formData as any)
+            await createWorker(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateWorker(modalData.id as string, formData as any)
+            await updateWorker(modalData.id as string, formData as CrudData)
           }
           break
         case "Booking":
           if (modalMode === "create") {
-            await createBooking(formData as any)
+            await createBooking(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateBooking(modalData.id as string, formData as any)
+            await updateBooking(modalData.id as string, formData as CrudData)
           }
           break
         case "Transaction":
           if (modalMode === "create") {
-            await createTransaction(formData as any)
+            await createTransaction(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateTransaction(modalData.id as string, formData as any)
+            await updateTransaction(
+              modalData.id as string,
+              formData as CrudData,
+            )
           }
           break
         case "Rating":
           if (modalMode === "create") {
-            await createRating(formData as any)
+            await createRating(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateRating(modalData.id as string, formData as any)
+            await updateRating(modalData.id as string, formData as CrudData)
           }
           break
         case "Admin":
           if (modalMode === "create") {
-            await createAdmin(formData as any)
+            await createAdmin(formData as CrudData)
           } else if (modalMode === "edit" && modalData?.id) {
-            await updateAdmin(modalData.id as string, formData as any)
+            await updateAdmin(modalData.id as string, formData as CrudData)
           }
           break
       }
