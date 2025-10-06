@@ -155,7 +155,7 @@ const teamMembers = [
     name: "Daniel Nogueira",
     role: "Co-fundador & CTO",
     description:
-      "Engenheira de software apaixonada por criar soluções que facilitam a vida de empreendedores.",
+      "Engenheiro de software apaixonado por criar soluções que facilitam a vida de empreendedores.",
     image: "/team/daniel.jpg", // Você pode substituir por uma imagem real
     email: "coruja.js@require.store",
     phone: "(85) 99684-4565",
@@ -164,10 +164,10 @@ const teamMembers = [
     name: "Wesley Lima",
     role: "Co-fundador & CEO",
     description:
-      "Especialista em gestão de negócios com mais de 10 anos de experiência no setor de vendas.",
+      "Especialista no setor comercial a 7 anos, gerindo e conectando clientes a suas melhores experiências.",
     image: "/team/wesley.jpg", // Você pode substituir por uma imagem real
-    email: "wesley@equire.store",
-    phone: "(85) 99756-4565",
+    email: "wessouza002@gmail.com",
+    phone: "(11) 91763-2914",
   },
 ]
 
