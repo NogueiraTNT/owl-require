@@ -36,6 +36,42 @@ interface UpdateItem {
 
 const updates: UpdateItem[] = [
   {
+    id: "9",
+    title: "Novos Tutoriais: Transações e Dashboard do Funcionário",
+    description:
+      "Adicionamos dois novos tutoriais completos para ajudar você a dominar o controle financeiro e o sistema de funcionários do CorteZapp.",
+    date: "2025-10-06",
+    version: "v2.3.0",
+    type: "feature",
+    icon: Database,
+    highlights: [
+      "Tutorial completo de Gerenciar Transações",
+      "Tutorial detalhado do Dashboard do Funcionário",
+      "Guia passo a passo para login via WhatsApp",
+      "Explicação de todas as estatísticas pessoais",
+      "Dicas de segurança e melhores práticas",
+      "Categorização organizada por funcionalidade",
+    ],
+  },
+  {
+    id: "8",
+    title: "Sistema de Transações Financeiras Completo",
+    description:
+      "Implementamos um sistema completo para gerenciar todas as transações financeiras da barbearia com categorização e métodos de pagamento.",
+    date: "2025-10-06",
+    version: "v2.2.2",
+    type: "feature",
+    icon: Database,
+    highlights: [
+      "Registro de receitas, despesas e investimentos",
+      "Categorização automática de transações",
+      "Múltiplos métodos de pagamento (PIX, cartões, dinheiro)",
+      "Controle de datas e valores monetários",
+      "Edição e exclusão de transações",
+      "Validações de segurança integradas",
+    ],
+  },
+  {
     id: "7",
     title: "Painel do Funcionário com Login via WhatsApp",
     description:
@@ -215,7 +251,7 @@ export default function NovidadesPage() {
                 <Zap className="h-5 w-5 text-blue-500" />
                 <div>
                   <p className="text-sm font-medium">Versão Atual</p>
-                  <p className="text-xs text-muted-foreground">v2.2.0</p>
+                  <p className="text-xs text-muted-foreground">v2.3.0</p>
                 </div>
               </div>
             </CardContent>
@@ -228,7 +264,7 @@ export default function NovidadesPage() {
                 <div>
                   <p className="text-sm font-medium">Melhorias</p>
                   <p className="text-xs text-muted-foreground">
-                    8 atualizações
+                    9 atualizações
                   </p>
                 </div>
               </div>
