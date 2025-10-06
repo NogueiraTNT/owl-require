@@ -16,6 +16,7 @@ import {
   Bell,
   Shield,
   MessageSquare,
+  Newspaper,
 } from "lucide-react"
 
 interface AdminNavigationProps {
@@ -91,6 +92,12 @@ const AdminNavigation = ({ adminType }: AdminNavigationProps) => {
       href: "/admin/configuracoes",
       icon: Settings,
       roles: ["ADMIN"],
+    },
+    {
+      title: "Novidades",
+      href: "/novidades",
+      icon: Newspaper,
+      roles: ["ADMIN", "SUPORTE"],
     },
   ]
 
