@@ -108,6 +108,12 @@ model Barbershop {
   notificationSettings NotificationSettings?
 }
 
+
+enum BarbershopVerification {
+  PIONEER    // Pioneiro - Badge dourado
+  VERIFIED   // Verificado - Badge azul
+}
+
 model BarbershopService {
   id           String     @id @default(uuid())
   name         String
@@ -286,6 +292,11 @@ model NotificationSettings {
   // Notificações para dono da barbearia
   ownerEmailEnabled     Boolean  @default(true)
   ownerWhatsAppEnabled  Boolean  @default(false)
+  // Novas notificações de lembrete
+  reminder1hEmailEnabled    Boolean  @default(true)
+  reminder1hWhatsAppEnabled Boolean  @default(true)
+  dailyReminderEmailEnabled    Boolean  @default(true)
+  dailyReminderWhatsAppEnabled Boolean  @default(true)
   // Configurações gerais
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
@@ -295,9 +306,4 @@ model NotificationSettings {
 enum AdminType {
   SUPORTE
   ADMIN
-}
-
-enum BarbershopVerification {
-  PIONEER    // Pioneiro - Badge dourado
-  VERIFIED   // Verificado - Badge azul
 }
