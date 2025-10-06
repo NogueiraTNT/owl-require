@@ -36,6 +36,24 @@ interface UpdateItem {
 
 const updates: UpdateItem[] = [
   {
+    id: "7",
+    title: "Painel do Funcionário com Login via WhatsApp",
+    description:
+      "Agora os funcionários têm acesso ao seu próprio painel personalizado com login seguro via WhatsApp e código de verificação.",
+    date: "2025-10-06",
+    version: "v2.2.0",
+    type: "feature",
+    icon: Users,
+    highlights: [
+      "Login seguro via WhatsApp com código de verificação",
+      "Dashboard personalizado para cada funcionário",
+      "Visualização de agendamentos do dia/semana/mês",
+      "Controle de faturamento e estatísticas pessoais",
+      "Interface intuitiva e responsiva",
+      "Acesso rápido aos dados da barbearia",
+    ],
+  },
+  {
     id: "6",
     title: "Sistema de Agendamento Dinâmico",
     description:
@@ -197,7 +215,7 @@ export default function NovidadesPage() {
                 <Zap className="h-5 w-5 text-blue-500" />
                 <div>
                   <p className="text-sm font-medium">Versão Atual</p>
-                  <p className="text-xs text-muted-foreground">v2.1.1</p>
+                  <p className="text-xs text-muted-foreground">v2.2.0</p>
                 </div>
               </div>
             </CardContent>
@@ -210,7 +228,7 @@ export default function NovidadesPage() {
                 <div>
                   <p className="text-sm font-medium">Melhorias</p>
                   <p className="text-xs text-muted-foreground">
-                    7 atualizações
+                    8 atualizações
                   </p>
                 </div>
               </div>
